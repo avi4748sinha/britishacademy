@@ -1,0 +1,52 @@
+CREATE TABLE roles (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(50) UNIQUE NOT NULL
+);
+
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  role_id INTEGER REFERENCES roles(id),
+  username VARCHAR(100) UNIQUE NOT NULL,
+  password_hash TEXT NOT NULL,
+  is_active BOOLEAN DEFAULT TRUE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE students (
+  id SERIAL PRIMARY KEY,
+  admission_number VARCHAR(30) UNIQUE NOT NULL,
+  full_name VARCHAR(150) NOT NULL,
+  father_name VARCHAR(150),
+  mother_name VARCHAR(150),
+  class_name VARCHAR(20),
+  section VARCHAR(10),
+  phone VARCHAR(20),
+  address TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE teachers (
+  id SERIAL PRIMARY KEY,
+  full_name VARCHAR(150) NOT NULL,
+  phone VARCHAR(20),
+  email VARCHAR(150),
+  subject_specialization VARCHAR(100),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE notices (
+  id SERIAL PRIMARY KEY,
+  title VARCHAR(200) NOT NULL,
+  body TEXT NOT NULL,
+  is_pinned BOOLEAN DEFAULT FALSE,
+  expires_at DATE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE gallery (
+  id SERIAL PRIMARY KEY,
+  title VARCHAR(200) NOT NULL,
+  category VARCHAR(80) NOT NULL,
+  image_path TEXT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
